@@ -8,14 +8,15 @@
   <div class="col-md-6">
     <div class="card shadow">
       <div class="card-body">
-        <h6>Jumlah akan ditentukan dari paket pilihan kamu. Silahkan transfer sesuai dengan jumlah yang ditentukan.</h6>
+        <h6>Jumlah akan ditentukan dari lama sewa pilihan kamu. Silahkan transfer sesuai dengan jumlah yang ditentukan.</h6>
       </div>
     </div>
     <div class="card shadow">
       <div class="card-body">
         <div class="d-flex justify-content-between">
           <span>
-            {{rupiah($transaksi->harga_total)}}
+            Jumlah :
+            <span style="font-weight: bold">{{rupiah($transaksi->harga_total)}}</span>
           </span>
           <span style="font-size: 21px">
             <i class="feather icon-credit-card"></i>
@@ -24,9 +25,13 @@
         <hr>
         <div class="d-flex justify-content-between">
           <span>
-            {{getNamaBank($transaksi->pemilik_id)}} <br>
-            {{getNoRek($transaksi->pemilik_id)}} <br>
-            {{getNamePemilikBank($transaksi->pemilik_id)}}
+            @foreach ($transaksi->bank as $banks)
+              <ul>
+                <li>{{$banks->nama_bank}}</li>
+                <li>{{$banks->no_rekening}}</li>
+                <li>{{$banks->nama_pemilik}}</li>
+              </ul>
+            @endforeach
           </span>
         </div>
         <hr>
@@ -50,29 +55,53 @@
           @csrf
           @method('PUT')
           <div class="form-group">
-            <label for="Atas Nama">Atas Nama</label>
-            <input type="text" name="nama_pemilik" class="form-control" placeholder="Atas Nama" autocomplete="off">
+            <label for="Atas Nama">Nama Pengirim</label>
+            <input type="text" name="nama_pemilik" class="form-control @error('nama_pemilik') is-invalid @enderror" placeholder="Atas Nama" autocomplete="off">
+            @error('nama_pemilik')
+              <div class="invalid-feedback">
+                <strong>{{ $message }}</strong>
+              </div>
+            @enderror
           </div>
 
           <div class="form-group">
             <label for="Bank Kamu">Bank Kamu</label>
-            <input type="text" name="nama_bank" class="form-control" placeholder="Bank Kamu" autocomplete="off">
+            <select name="nama_bank" class="form-control select2">
+              <option value="">-- Pilih Bank --</option>
+              @foreach ($bank as $banks)
+                <option value="{{$banks->nama_bank}}">{{$banks->nama_bank}}</option>
+              @endforeach
+            </select>
+            @error('nama_bank')
+              <div class="invalid-feedback">
+                <strong>{{ $message }}</strong>
+              </div>
+            @enderror
           </div>
 
           <div class="form-group">
             <label for="Bank Tujuan">Bank Tujuan</label>
-            <select name="bank_tujuan"class="form-control">
-              <option>Pilih Bank Tujuan</option>
-              <option value="BNI">BNI</option>
-              <option value="BRI">BRI</option>
-              <option value="BCA">BCA</option>
-              <option value="MANDIRI">MANDIRI</option>
+            <select name="bank_tujuan" class="form-control">
+              <option value="">-- Pilih Bank --</option>
+              @foreach ($bank as $banks)
+                <option value="{{$banks->nama_bank}}">{{$banks->nama_bank}}</option>
+              @endforeach
             </select>
+            @error('bank_tujuan')
+              <div class="invalid-feedback">
+                <strong>{{ $message }}</strong>
+              </div>
+            @enderror
           </div>
 
           <div class="form-group">
             <label for="Tanggal Transfer">Tanggal Transfer</label>
-            <input type="text" name="tgl_transfer" class="form-control" placeholder="Tanggal Transfer">
+            <input type="date" name="tgl_transfer" class="form-control @error('tgl_transfer') is-invalid @enderror" placeholder="Tanggal Transfer">
+            @error('tgl_transfer')
+              <div class="invalid-feedback">
+                <strong>{{ $message }}</strong>
+              </div>
+            @enderror
           </div>
 
           <div class="form-group">

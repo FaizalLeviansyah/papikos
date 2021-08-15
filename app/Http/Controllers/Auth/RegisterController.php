@@ -50,11 +50,25 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
             'role' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ],
+
+        [
+            "name.required"      => 'Nama Tidak Boleh kosong.',
+            "name.max"           => 'Nama Tidak Boleh Lebih Dari 50 Karakter.',
+            "email.required"     => 'Email Tidak Boleh Kosong.',
+            "email.max"          => 'Email Tidak Boleh Lebih Dari 50 Karakter',
+            "email.unique"       => 'Email Sudah Terdaftar.',
+            "role.required"      => 'Jenis Pendaftaran Harus Di Pilih.',
+            "password.required"  => 'Password Tidak Boleh Kosong.',
+            "password.min"       => 'Password Minimal 8 Karakter.',
+            "password.confirmed" => 'Password Tidak Sama.',
+        ]
+
+        );
     }
 
     /**
@@ -73,11 +87,6 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole($data['role']);
-        if ($user) {
-          DataUser::create([
-            'user_id' => $user->id
-          ]);
-        }
         return $user;
     }
 }

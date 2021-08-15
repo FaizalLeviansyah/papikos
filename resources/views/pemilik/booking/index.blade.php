@@ -46,7 +46,7 @@
                         <td>{{$bookings->transaction_number}}</td>
                         <td>{{$bookings->kamar->nama_kamar}}</td>
                         <td>{{getNameUser($bookings->user_id)}}</td>
-                        <td>{{getTlpUser($bookings->user_id == NULL ? '-' : $bookings->user_id)}}</td>
+                        <td>{{$bookings->user->no_wa ?? 0}}</td>
                         <td>{{$bookings->lama_sewa}} Bulan</td>
                         <td>{{$bookings->payment->status}}</td>
                         <td>

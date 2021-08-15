@@ -1,5 +1,5 @@
 
-$('#datepicker').datepicker({
+$('.datepicker').datepicker({
   clearBtn: true,
   changeYear: true,
   changeMonth: true,
@@ -11,7 +11,6 @@ $('#datepicker').datepicker({
 });
 
 // Total harga kamar + lama sewa
-
 $(function() {
   $(".DropChange").change(function(){
     var valone = $('#hargakamar').val();

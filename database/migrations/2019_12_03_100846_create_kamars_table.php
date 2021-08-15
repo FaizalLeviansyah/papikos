@@ -29,7 +29,7 @@ class CreateKamarsTable extends Migration
             $table->enum('kategori',['Kost','Apartment']);
             $table->enum('book',[0,1]); // 0 no
             $table->enum('listrik',[0,1]); // 0 no
-            $table->string('provinsi_id');
+            $table->string('province_id');
             $table->string('bg_foto');
             $table->timestamps();
 

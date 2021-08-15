@@ -39,27 +39,21 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @php
-                        $no = 1;
-                      @endphp
-                      @foreach ($kamar as $item)
-                      <tr>
-                        <td>{{$no}}</td>
-                        <td>{{$item->nama_kamar}}</td>
-                        <td>{{$item->kategori}}</td>
-                        <td>{{$item->jenis_kamar}}</td>
-                        <td>{{$item->stok_kamar}}</td>
-                        <td>{{$item->sisa_kamar}}</td>
-                        <td>{{$item->harga_kamar}}</td>
-                        <td class="text-center">
-                          <a href="{{route('kamar.show', $item->slug)}}" class="btn btn-info btn-sm">Show</a>
-                          <a href="{{route('kamar.edit', $item->id)}}" class="btn btn-warning btn-sm">Edit</a>
-                        </td>
-                      </tr>
-                      @php
-                        $no++;
-                      @endphp
-                      @endforeach
+                    @foreach ($kamar as $key => $item)
+                    <tr>
+                      <td>{{$key+1}}</td>
+                      <td>{{$item->nama_kamar}}</td>
+                      <td>{{$item->kategori}}</td>
+                      <td>{{$item->jenis_kamar}}</td>
+                      <td>{{$item->stok_kamar}}</td>
+                      <td>{{$item->sisa_kamar}}</td>
+                      <td>{{rupiah($item->harga_kamar)}}</td>
+                      <td class="text-center">
+                        <a href="{{url('room', $item->slug)}}" class="btn btn-info btn-sm">Show</a>
+                        <a href="{{route('kamar.edit', $item->slug)}}" class="btn btn-warning btn-sm">Edit</a>
+                      </td>
+                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

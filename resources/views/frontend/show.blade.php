@@ -62,8 +62,12 @@
           <p class="font-weight-bold" style="font-size: 20px; color:black"> {{$kamar->nama_kamar}} </p>
           <div class="mb-3">
             <span style=" color:black">
-              {{$kamar->jenis_kamar}} - {{getNameProvinsi($kamar->provinsi_id)}}
-              - Tersisa {{$kamar->sisa_kamar}} Kamar
+              Kos {{$kamar->jenis_kamar}} - <i class="fa fa-map-marked-alt"></i> {{getNameProvinsi($kamar->province_id)}}, {{getNameRegency($kamar->regency_id)}}, {{getNameDistrict($kamar->district_id)}}
+            </span>
+          </div>
+          <div class="mb-3">
+            <span style="color: black">
+            Tersisa {{$kamar->sisa_kamar}} Kamar
             </span>
           </div>
           <div class="d-flex justify-content-between">
@@ -79,18 +83,18 @@
             </div>
           </div>
           <hr>
-          <h5 style="color: black">Fasilitas</h5>
+          <h6 style="color: black">Fasilitas</h6>
           <p style="font-size: 14px">
             {{$kamar->listrik == 0 ? 'Tidak Termasuk Listrik' : 'Termasuk Listrik'}} <br>
             Tidak Ada Minimum Pembayaran <br>
             Diskon Jutaan
           </p>
           <hr>
-          <h6 class="font-weight-bold">Luas Kamar</h6>
+          <h6 style="color: black">Luas Kamar</h6>
           <p style="font-size: 14px">
             {{$kamar->luas_kamar}}
           </p>
-          <h6 class="font-weight-bold">Fasilitas Yang Didapat</h6>
+          <h6 style="color: black">Fasilitas Yang Didapat</h6>
           <p style="font-size: 14px">
             <div class="row">
               <div class="col-md-6">
@@ -117,7 +121,7 @@
               </div>
             </div>
           </p>
-          <h6 class="font-weight-bold">Fasilitas Umum</h6>
+          <h6 style="color: black">Fasilitas Umum</h6>
           <div class="d-flex justify-content-between">
             <p style="font-size: 14px">
               {{-- Fasilitas Umum --}}
@@ -125,6 +129,21 @@
                 {{$area->name}} <br>
               @endforeach
             </p>
+          </div>
+
+          <h6 style="color: black">Keterangan Lain</h6>
+          <div class="mb-3">
+             {{$kamar->ket_lain ?? '-'}}
+          </div>
+
+          <h6 style="color: black">Keterangan Biaya</h6>
+          <div class="mb-3">
+             {{$kamar->ket_biaya ?? '-'}}
+          </div>
+
+          <h6 style="color: black">Peraturan selama ngekos</h6>
+          <div class="mb-3">
+             {{$kamar->desc ?? '-'}}
           </div>
         </div>
       </div>

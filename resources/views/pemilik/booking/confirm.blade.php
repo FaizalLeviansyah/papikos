@@ -11,7 +11,7 @@
         <h4 class="font-weight-bold">Konfirmasi Pembayaran</h4>
         <h6>Approve Pembayaran jika data pembayaran dari penyewa sudah sesuai.</h6>
         <hr>
-        <form action="{{url('pemilik/payment-confirm',$confirm->id)}}" method="post">
+        <form action="{{url('pemilik/payment-confirm',$confirm->key)}}" method="post">
           @csrf
           @method('PUT')
           <div class="form-group">

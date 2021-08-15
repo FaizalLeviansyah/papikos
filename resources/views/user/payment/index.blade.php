@@ -25,7 +25,7 @@
           </div>
           <h5>Account</h5>
           <div style="margin-left:2px">
-            <a href="" style="font-size: 12px">Edit Profile</a> <br>
+            <a href="{{url('profile')}}" style="font-size: 12px">Profile</a> <br>
             <a href="" style="font-size: 12px">Ganti Password</a>
           </div>
 

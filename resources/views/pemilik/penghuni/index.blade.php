@@ -35,9 +35,9 @@
                           <td>{{$item->kamar->kategori}}</td>
                           <td>{{$item->kamar->jenis_kamar}}</td>
                           <td>{{$item->lama_sewa}} Bulan</td>
-                          <td>{{forDate($item->created_at)}}</td>
+                          <td>{{Carbon\Carbon::parse($item->tgl_sewa)->format('d-F-Y')}}</td>
                           <td>
-                            {{Carbon\Carbon::parse($item->tgl_sewa)->addDays($item->hari)->format('d-F-Y')}}
+                            {{Carbon\Carbon::parse($item->end_date_sewa)->format('d-F-Y')}}
                           </td>
                         </tr>
                       @php

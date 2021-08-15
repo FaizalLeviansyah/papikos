@@ -65,10 +65,6 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <label class="col-form-label">Background Foto Kamar</label>
-                        <input type="file" name="bg_foto" class="form-control">
-                    </div>
-                    <div class="col-sm-3">
                         <label class="col-form-label">Biaya Listrik</label>
                         <select name="listrik" class="form-control">
                             <option value="">-- Listrik Kamar --</option>
@@ -79,12 +75,30 @@
 
                     <div class="col-sm-3">
                         <label class="col-form-label">Provinsi</label>
-                        <select name="provinsi_id" class="form-control" id="select2">
+                        <select name="province_id" class="form-control" id="select2">
                             <option value="">-- Pilih Provinsi --</option>
                                 @foreach ($provinsi as $item)
-                                    <option value="{{$item->kode}}" {{$edit->provinsi_id == $item->kode ? 'selected' : ''}} >{{$item->nama}}</option>
+                                    <option value="{{$item->id}}" {{$edit->province_id == $item->id ? 'selected' : ''}} >{{$item->name}}</option>
                                 @endforeach
                         </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Regency</label>
+                        <select name="regency_id" class="form-control  @error('regency_id') is-invalid @enderror" id="regency"></select>
+                        @error('regency_id')
+                          <div class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                          </div>
+                        @enderror
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-form-label">District</label>
+                        <select name="district_id" class="form-control  @error('district_id') is-invalid @enderror" id="district"></select>
+                        @error('district_id')
+                          <div class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                          </div>
+                        @enderror
                     </div>
                 </div>
 
@@ -112,7 +126,7 @@
                           @foreach ($edit->fkamar as $fkamar)
                             <div class="col-lg-5 col-xl-5 col-10">
                               <label class="col-form-label">Fasilitas Kamar</label>
-                              <input type="text" class="form-control" value="{{$fkamar->name}}" placeholder="Fasilitas Kamar">
+                              <input type="text" class="form-control" value="{{$fkamar->name}}" placeholder="Fasilitas Kamar" readonly>
                             </div>
                           @endforeach
                         <div class="col-2 col-lg-1 col-xl-1">
@@ -130,7 +144,7 @@
                             @foreach ($edit->kmandi as $kamandis)
                               <div class="col-lg-5 col-xl-5 col-10">
                                 <label class="col-form-label">Fasilitas Kama Mandi</label>
-                                <input type="text" class="form-control" value="{{$kamandis->name}}" placeholder="Fasilitas Kama Mandi">
+                                <input type="text" class="form-control" value="{{$kamandis->name}}" placeholder="Fasilitas Kama Mandi" readonly>
                               </div>
                             @endforeach
                             <div class="col-2 col-lg-1 col-xl-1">
@@ -148,7 +162,7 @@
                                 @foreach ($edit->fbersama as $fbersamas)
                                   <div class="col-lg-5 col-xl-5 col-10">
                                     <label class="col-form-label">Fasilitas Bersama</label>
-                                    <input type="text" class="form-control" value="{{$fbersamas->name}}" placeholder="Fasilitas Bersama">
+                                    <input type="text" class="form-control" value="{{$fbersamas->name}}" placeholder="Fasilitas Bersama" readonly>
                                   </div>
                                 @endforeach
                                 <div class="col-2 col-lg-1 col-xl-1">
@@ -166,7 +180,7 @@
                           @foreach ($edit->fparkir as $parkir)
                             <div class="col-lg-5 col-xl-5 col-10">
                               <label class="col-form-label">Fasilitas Parkir</label>
-                              <input type="text" class="form-control" value="{{$parkir->name}}" placeholder="Fasilitas Parkir">
+                              <input type="text" class="form-control" value="{{$parkir->name}}" placeholder="Fasilitas Parkir" readonly>
                             </div>
                           @endforeach
                           <div class="col-2 col-lg-1 col-xl-1">
@@ -184,7 +198,7 @@
                           @foreach ($edit->area as $area)
                             <div class="col-lg-5 col-xl-5 col-10">
                               <label class="col-form-label">Area Lingkungan</label>
-                              <input type="text" class="form-control" value="{{$area->name}}" placeholder="Area Lingkungan">
+                              <input type="text" class="form-control" value="{{$area->name}}" placeholder="Area Lingkungan" readonly>
                             </div>
                           @endforeach
                           <div class="col-2 col-lg-1 col-xl-1">

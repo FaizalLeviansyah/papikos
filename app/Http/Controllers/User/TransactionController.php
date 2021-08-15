@@ -4,12 +4,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Transaction,kamar,payment,User};
+use App\Models\{Transaction,kamar,payment,User,Bank};
 use Auth;
 use Str;
 use Session;
 use Carbon\carbon;
-
+use App\Http\Requests\KonfirmasiPembayaranRequest;
 class TransactionController extends Controller
 {
     // Tagihan
@@ -88,7 +88,7 @@ class TransactionController extends Controller
           }
 
           Session::flash('success','Berhasil, Silahkan Melakukan Pembayaran');
-          return redirect('/home');
+          return redirect('/user/tagihan');
         } else {
           abort(403);
         }
@@ -100,20 +100,22 @@ class TransactionController extends Controller
     public function detail_payment($key)
     {
       $transaksi = Transaction::where('key',$key)->first();
+      $bank = Bank::all();
       if ($transaksi->payment->status == 'Pending') {
-        return view('user.payment.show', compact('transaksi'));
+        return view('user.payment.show', compact('transaksi','bank'));
       } else {
         Session::flash('error','Pembayaran Sudah Terkirim');
         return redirect('/user/tagihan');
       }
     }
 
-    // Transaction pembayaran room
-    public function update(Request $request, $id)
+    // konfirmasi pembayaran kamar
+    public function update(KonfirmasiPembayaranRequest $request, $id)
     {
       $konfirmasi = Transaction::findOrFail($id);
-      $konfirmasi->status = 'Pending';
-      $konfirmasi->save();
+      $konfirmasi->update([
+        'status'  => 'Pending'
+      ]);
 
       if ($konfirmasi) {
         $payment = payment::where('transaction_id',$id)->first();

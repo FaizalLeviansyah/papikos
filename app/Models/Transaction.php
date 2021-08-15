@@ -28,8 +28,8 @@ class Transaction extends Model
       return $this->hasOne('App\Models\payment','transaction_id');
     }
 
-    public function datauser()
+    public function bank()
     {
-      return $this->belongsTo('App\Models\DataUser','user_id');
+      return $this->hasMany('App\Models\DataRekening','user_id','pemilik_id');
     }
 }

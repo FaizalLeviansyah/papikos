@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Carbon\carbon;
+use App\Models\Transaction;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,9 @@ class HomeController extends Controller
     {
       if (Auth::check()) {
         if (Auth::user()->role == 'Pemilik') {
-          return view('pemilik.index');
+          $aktif = Transaction::where('pemilik_id',Auth::id())->where('status','Proses')->count();
+          $total = Transaction::where('pemilik_id',Auth::id())->whereIn('status',['Proses','Done'])->count();
+          return view('pemilik.index', \compact('aktif','total'));
         } elseif(Auth::user()->role == 'Pencari') {
           return view('user.index');
         } else {

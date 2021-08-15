@@ -17,30 +17,11 @@
                       <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                         <li class="dropdown-menu-header">
                             <div class="dropdown-header m-0 p-2">
-                                <h3 class="white">5 New</h3><span class="grey darken-2">Notifications</span>
+                                <h3 class="white">0</h3><span class="grey darken-2">Notifications</span>
                             </div>
                         </li>
-                        <li class="scrollable-container media-list">
-                          <a class="d-flex justify-content-between" href="javascript:void(0)">
-                              <div class="media d-flex align-items-start">
-                                  <div class="media-left"><i class="feather icon-check-circle font-medium-5 info"></i></div>
-                                  <div class="media-body">
-                                      <h6 class="info media-heading">Complete the task</h6><small class="notification-text">Cake sesame snaps cupcake</small>
-                                  </div><small>
-                                      <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Last week</time></small>
-                              </div>
-                          </a>
-                          <a class="d-flex justify-content-between" href="javascript:void(0)">
-                              <div class="media d-flex align-items-start">
-                                  <div class="media-left"><i class="feather icon-file font-medium-5 warning"></i></div>
-                                  <div class="media-body">
-                                      <h6 class="warning media-heading">Generate monthly report</h6><small class="notification-text">Chocolate cake oat cake tiramisu marzipan</small>
-                                  </div><small>
-                                      <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Last month</time></small>
-                              </div>
-                          </a>
-                        </li>
-                        <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li>
+
+                        {{-- <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li> --}}
                       </ul>
                   </li>
                   <li class="dropdown dropdown-user nav-item">
@@ -58,8 +39,8 @@
                       </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="{{url('pemilik/profile')}}"><i class="feather icon-user"></i> Edit Profile</a>
-                      <a class="dropdown-item" href=""><i class="feather icon-settings"></i> Reset Password</a>
+                      <a class="dropdown-item" href="{{url('profile')}}"><i class="feather icon-user"></i>Profile</a>
+                      {{-- <a class="dropdown-item" href=""><i class="feather icon-settings"></i> Reset Password</a> --}}
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{ route('logout') }}"
                           onclick="event.preventDefault();
@@ -82,8 +63,9 @@
       <div class="navbar-header d-xl-block d-none">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item">
-              <a class="navbar-brand" href="../../../html/ltr/horizontal-menu-template-dark/index.html">
-                <div class="brand-logo"></div>
+              <a class="navbar-brand" href="{{url('/home')}}">
+                  <div class="brand-logo"></div>
+                  <h2 class="brand-text mb-0">Pap!Kos</h2>
               </a>
             </li>
         </ul>
@@ -107,7 +89,7 @@
                     <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                       <li class="dropdown-menu-header">
                         <div class="dropdown-header m-0 p-2">
-                          <h3 class="white">5 New</h3><span class="notification-title">App Notifications</span>
+                          <h3 class="white">0</h3><span class="notification-title">App Notifications</span>
                         </div>
                       </li>
                     </ul>
@@ -127,9 +109,8 @@
                       </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href=""><i class="feather icon-user"></i> Edit Profile</a>
+                      <a class="dropdown-item" href="{{url('profile')}}"><i class="feather icon-user"></i>Profile</a>
                       <a class="dropdown-item" href="{{url('user/tagihan')}}"><i class="feather icon-book"></i> Tagihan</a>
-                      <a class="dropdown-item" href=""><i class="feather icon-settings"></i> Reset Password</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{ route('logout') }}"
                           onclick="event.preventDefault();

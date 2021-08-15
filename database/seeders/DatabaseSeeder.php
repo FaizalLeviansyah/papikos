@@ -12,8 +12,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(provinsiSeeder::class);
-        $this->call(regenciSeeder::class);
+        $this->call(IndoRegionProvinceSeeder::class);
+        $this->call(IndoRegionRegencySeeder::class);
+        $this->call(IndoRegionDistrictSeeder::class);
+        $this->call(IndoRegionVillageSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(IndoBankSeeder::class);
+
     }
 }
