@@ -19,7 +19,7 @@
                           <i class="feather icon-airplay"></i> <a href="" style="color: black">App</a>
                         </li>
                         <li>
-                          <i class="feather icon-calendar"></i> <a href="" style="color: black">Booking</a>
+                          <i class="feather icon-calendar"></i> <a href="{{url('show-all-room')}}" style="color: black">Booking</a>
                         </li>
                     </ul>
                 </div>

@@ -45,6 +45,11 @@ class kamar extends Model
       return $this->hasMany(area::class);
     }
 
+    public function fotoKamar()
+    {
+      return $this->hasMany(fotokamar::class);
+    }
+
     public function datauser()
     {
       return $this->belongsTo('App\Models\DataUser','user_id');

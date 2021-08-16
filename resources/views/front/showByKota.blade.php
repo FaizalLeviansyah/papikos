@@ -1,14 +1,45 @@
-@if ($kamar->total() == null)
-  <h4 style="text-align: center">Belum ada kamar yang tersedia.</h4>
-@else
-  <div class="card-btn d-flex justify-content-between mt-2">
-    <h2 style="color:black">Dipilih Kos nya kakak</h2>
-    @if ($kamar->total() >= 8)
-    <a href="{{url('show-all-room')}}" class="btn btn-outline-info mb-1" style="color:black">Lihat Semua</a>
+@extends('layouts.front.app')
+
+@section('title')
+  Selamat Datang di Pap!Kos
+@endsection
+
+@section('content')
+  <section id="search-bar">
+    <div class="search-bar">
+      <form action="{{url('show-all-room')}}" method="GET">
+        <fieldset class="form-group position-relative has-icon-left">
+          <input type="text" class="form-control round" name="cari" id="searchbar" placeholder="Masukan Nama Kos lokasi/kota/provinsi...">
+          <div class="form-control-position">
+             <i class="feather icon-search px-1"></i>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+
+  <div class="mb-2" style="font-weight: bold">
+    @if ($kota == 'DKI JAKARTA')
+      Kost Jakarta
+    @elseif($kota == 'DI YOGYAKARTA')
+      Kost Jogja
+    @elseif($kota == 'KOTA SURABAYA')
+      Kost Surabaya
+    @elseif($kota == 'KABUPATEN BANDUNG')
+      Kost Bandung
+    @elseif($kota == 'KABUPATEN MALANG')
+      Kost Malang
+    @elseif($kota == 'KABUPATEN SEMARANG')
+      Kost Semarang
+    @elseif($kota == 'KOTA MEDAN')
+      Kost Medan
+    @else
+    Kota tidak ditemukan.
     @endif
   </div>
+
   <div class="row match-height">
-    @foreach ($kamar as $kamars)
+    @forelse ($kamar as $kamars)
     <div class="col-xl-3 col-md-6 col-sm-12">
       <div class="card">
         <div class="card-content">
@@ -33,9 +64,16 @@
         </div>
       </div>
     </div>
-    @endforeach
+    @empty
+    <div class="col" style="text-align:center">
+      <img src="{{asset('assets/images/pages/empty.svg')}}" style="max-height: 350px">
+      <p class="mt-2">Kamar yang kamu cari tidak ditemukan.</p>
+    </div>
+    @endforelse
   </div>
-  <div style="text-align: center;" class="mt-1">
+  <div style="text-align: center;" class="mt-1 mb-5">
     {{ $kamar->links() }}
   </div>
-@endif
+
+  @include('front.byKota')
+@endsection

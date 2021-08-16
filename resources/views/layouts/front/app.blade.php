@@ -9,7 +9,8 @@
     <meta name="description" content="Papikos, cari kos dan apartement makin mudah hanya di papikos. aplikasi pencari kos di indonesia.">
     <meta name="keywords" content="papikos, cari kos di papikos, aplikasi pencari kos">
     <meta name="author" content="Andri Desmana">
-    <title>Selamat Datang di Pap!Kos</title>
+    <title>@yield('title')</title>
+
     <link rel="apple-touch-icon" href="{{asset('assets/images/logo/papikos_logo.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/logo/papikos_logo.png')}}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">

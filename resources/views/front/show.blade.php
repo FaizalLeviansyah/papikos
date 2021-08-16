@@ -23,21 +23,26 @@
     </h4>
     <div class="card ">
       <div class="card-content">
-          <div class="card-body ">
-              <div class="swiper-navigations swiper-container swiper">
-                  <div class="swiper-wrapper">
-                      <div class="swiper-slide"> <img class="img-fluid" src="https://cdn.pixabay.com/photo/2017/07/19/01/40/city-2517650_1280.jpg" alt="banner">
-                      </div>
-                      <div class="swiper-slide"> <img class="img-fluid" src="https://cdn.pixabay.com/photo/2013/03/02/02/41/alley-89197_1280.jpg" alt="banner">
-                      </div>
-                  </div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-              </div>
+        <div class="card-body ">
+          <div class="swiper-navigations swiper-container swiper">
+            <div class="swiper-wrapper">
+              @foreach ($kamar->fotoKamar as $foto)
+                <div class="swiper-slide">
+                  <img class="img-fluid" src="{{url('images/foto_kamar', $foto->foto_kamar)}}" alt="banner">
+                </div>
+              @endforeach
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
           </div>
+        </div>
       </div>
     </div>
   </div>
+
+  {{-- @foreach ($kamar->fotoKamar as $foto)
+    <img src="{{url('images/foto_kamar', $foto->foto_kamar)}}" width="400px" height="300px">
+  @endforeach --}}
 
   <div class="col-lg-4 sticky">
     <div class="card">
