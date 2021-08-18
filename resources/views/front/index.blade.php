@@ -1,4 +1,7 @@
 @extends('layouts.front.app')
+@section('description')
+  Papikos, cari kos dan apartement makin mudah hanya di papikos. aplikasi pencari kos di indonesia.
+@endsection
 @section('title')
   Selamat Datang di Pap!Kos
 @endsection

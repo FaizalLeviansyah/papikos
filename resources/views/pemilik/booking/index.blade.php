@@ -51,7 +51,11 @@
                         <td>{{$bookings->payment->status}}</td>
                         <td>
                           @if ($bookings->status == 'Pending')
-                            <a href="{{url('pemilik/room', $bookings->key)}}">Konfirmasi</a>
+                            @if ($bookings->payment->jumlah_bayar == null || $bookings->payment->tgl_transfer == null)
+                             <a href="">Menunggu Pembayaran </a>
+                            @else
+                             <a href="{{url('pemilik/room', $bookings->key)}}">Konfirmasi </a>
+                            @endif
                           @elseif($bookings->status == 'Proses')
                             <span class="badge badge-primary">Aktif</span>
                           @elseif($bookings->status == 'Done')

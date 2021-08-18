@@ -23,7 +23,10 @@ Route::get('/','Frontend\FrontendsController@homepage'); // homepage
 Route::get('/room/{slug}','Frontend\FrontendsController@showkamar'); //Show Kamar
 Route::get('show-all-room','Frontend\FrontendsController@showAllKamar'); //Show all kamar
 Route::get('filter-kamar','Frontend\FrontendsController@filterKamar'); //Filter kamar
-Route::get('kost','Frontend\FrontendsController@showByKota');
+Route::get('kost','Frontend\FrontendsController@showByKota'); // show kamar by kota
+
+Route::get('simpan/kamar','Frontend\FrontendsController@simpanKamar'); // proses simpan kamar (favorite)
+Route::get('hapus/kamar','Frontend\FrontendsController@hapusKamar'); // proses hapus kamar (favorite)
 
 Route::middleware('auth')->group(function () {
   Route::get('/home', 'HomeController@index');

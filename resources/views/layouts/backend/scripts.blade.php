@@ -8,6 +8,8 @@
 <script src="{{asset('assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
 <script src="{{asset('assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('assets/vendors/js/charts/apexcharts.min.js')}}"></script>
+<script src="{{asset('assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
+<script src="{{asset('assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
 <!-- END: Page Vendor JS-->
 
 <!-- BEGIN: Theme JS-->
@@ -18,7 +20,9 @@
 <!-- BEGIN: Page JS-->
 <script src="{{asset('assets/js/scripts/datatables/datatable.js')}}"></script>
 <script src="{{asset('assets/js/scripts/pages/user-profile.js')}}"></script>
+<script src="{{asset('assets/js/scripts/pickers/dateTime/pick-a-datetime.js')}}"></script>
 
 <!-- END: Page JS-->
+
 
 

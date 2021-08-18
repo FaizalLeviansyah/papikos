@@ -16,25 +16,78 @@
                     <ul class="nav navbar-nav">
                         <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         <li class="mr-2">
-                          <i class="feather icon-airplay"></i> <a href="" style="color: black">App</a>
+                          <a href="" style="color: black" ><i class="feather icon-airplay" data-toggle="tooltip" data-placement="bottom" title="Download Aplikasi"></i> </a>
                         </li>
                         <li>
-                          <i class="feather icon-calendar"></i> <a href="{{url('show-all-room')}}" style="color: black">Booking</a>
+                          <a href="{{url('show-all-room')}}" style="color: black"><i class="feather icon-calendar" data-toggle="tooltip" data-placement="top" title="Booking Kamar"></i> </a>
                         </li>
                     </ul>
                 </div>
                 <ul class="nav navbar-nav float-right">
-                    <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">0</span></a>
+                    <li class="dropdown dropdown-notification nav-item">
+                      <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-heart"></i>
+                        <span class="badge badge-pill badge-primary badge-up">
+                          @auth
+                            {{Auth::user()->simpanKamars != null ? Auth::user()->simpanKamars->count() : 0}}
+                          @else
+                            0
+                          @endauth
+                        </span>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                        <li class="dropdown-menu-header">
+                          <div class="dropdown-header m-0 p-2">
+                              <h3 class="white">
+                                @auth
+                                  {{Auth::user()->simpanKamars != null ? Auth::user()->simpanKamars->count() : 0}}
+                                 @else
+                                  0
+                                @endauth
+                              </h3>
+                              <span class="notification-title">Kos Favorite</span>
+                          </div>
+                        </li>
+                        @auth
+                          <li class="scrollable-container media-list">
+                            @foreach (Auth::user()->simpanKamars as $key => $favorite)
+                              <a class="d-flex justify-content-between" href="{{url('room',$favorite->kamar['slug'])}}">
+                                <div class="media d-flex align-items-start">
+                                  <div class="media-left">{{$key+1}}</div>
+                                    <div class="media-body">
+                                      <h6 class="primary media-heading">{{$favorite->kamar['nama_kamar']}}</h6>
+                                      <small><time class="media-meta" datetime="2015-06-11T18:29:20+08:00">{{$favorite->kamar['created_at']}}</time></small>
+                                    </div>
+                                </div>
+                              </a>
+                            @endforeach
+                          </li>
+                          <li class="dropdown-menu-footer {{Auth::user()->simpanKamar != null ? Auth::user()->simpanKamar->count() <= 1 ? 'hidden' : '' : ''}}">
+                            @if (Auth::user()->simpanKamar != null)
+                              <a class="dropdown-item p-1 text-center" href="{{url('show-all-room?cari='.Auth::id())}}">Lihat Semua</a>
+                            @else
+                               <a class="dropdown-item p-1 text-center" href="{{url('show-all-room')}}">Belum ada kamar favorite</a>
+                            @endif
+                          </li>
+                        @else
+                          <li class="dropdown-menu-footer">
+                            <a class="dropdown-item p-1 text-center" href="{{url('show-all-room')}}">Belum ada kamar favorite</a>
+                          </li>
+                        @endauth
+
+                      </ul>
+                    </li>
+
+                     <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">0</span></a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                             <li class="dropdown-menu-header">
                                 <div class="dropdown-header m-0 p-2">
                                     <h3 class="white">0</h3><span class="notification-title">Notifications</span>
                                 </div>
                             </li>
-
                             <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li>
                         </ul>
                     </li>
+
                     @auth
                       <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">

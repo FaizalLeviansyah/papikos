@@ -42,7 +42,7 @@
       <div class="card-body">
         <div class="d-flex justify-content-between">
           <span>
-            {{rupiah($confirm->harga_total)}}
+            Jumlah <span style="font-weight: bold; color:white">{{rupiah($confirm->harga_total)}}</span>
           </span>
           <span style="font-size: 21px">
             <i class="feather icon-credit-card"></i>
@@ -51,8 +51,9 @@
         <hr>
         <div class="d-flex justify-content-between">
           <span>
-            {{$confirm->payment->nama_pemilik}} <br>
-            {{$confirm->payment->nama_bank}} <br>
+            {{$confirm->payment->nama_pemilik}} <small><em>( Atas Nama)</em></small><br>
+            {{$confirm->payment->nama_bank}} <small><em>(Bank Pengirm)</em></small> <br>
+            {{$confirm->payment->bank_tujuan}} <small><em>(Bank Tujuan)</em></small> <br>
             {{$confirm->payment->tgl_transfer}} <small><em>(Tanggal Transfer)</em></small>
           </span>
         </div>

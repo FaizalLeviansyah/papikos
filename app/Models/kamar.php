@@ -50,10 +50,6 @@ class kamar extends Model
       return $this->hasMany(fotokamar::class);
     }
 
-    public function datauser()
-    {
-      return $this->belongsTo('App\Models\DataUser','user_id');
-    }
 
     public function payment()
     {
@@ -63,6 +59,11 @@ class kamar extends Model
     public function provinsi()
     {
       return $this->hasOne('App\Models\Province','id','province_id');
+    }
+
+    public function province()
+    {
+      return $this->hasMany('App\Models\Province','id','province_id');
     }
 
     public function regencies()
@@ -75,9 +76,19 @@ class kamar extends Model
       return $this->hasOne('App\Models\District','id','district_id');
     }
 
+    public function alamat()
+    {
+     return $this->hasOne(Alamat::class);
+    }
+
     public function transaksi()
     {
-      return $this->hasOne('App\Models\Transaction','kamar_id');
+      return $this->hasMany(Transaction::class);
+    }
+
+    public function favorite()
+    {
+      return $this->hasOne(SimpanKamar::class);
     }
 
 }

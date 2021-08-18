@@ -96,7 +96,7 @@
 
           <div class="form-group">
             <label for="Tanggal Transfer">Tanggal Transfer</label>
-            <input type="date" name="tgl_transfer" class="form-control @error('tgl_transfer') is-invalid @enderror" placeholder="Tanggal Transfer">
+            <input type="text" name="tgl_transfer" class="form-control pickadate @error('tgl_transfer') is-invalid @enderror" placeholder="Tanggal Transfer">
             @error('tgl_transfer')
               <div class="invalid-feedback">
                 <strong>{{ $message }}</strong>

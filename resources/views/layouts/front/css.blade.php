@@ -30,3 +30,7 @@
     <link rel="stylesheet" href="{{asset('frontend/css/custom.css')}}">
 
     <!-- END: Custom CSS-->
+
+    {{-- Package --}}
+    <script src="{{ asset('js/share.js') }}"></script>
+

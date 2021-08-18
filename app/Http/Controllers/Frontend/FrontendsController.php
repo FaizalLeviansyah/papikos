@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{kamar,provinsi,Testimoni,User};
-
+use App\Models\{kamar,provinsi,Testimoni,User,SimpanKamar};
+use Auth;
 class FrontendsController extends Controller
 {
-
     // Homepage
     public function homepage(Request $request)
     {
@@ -25,6 +24,7 @@ class FrontendsController extends Controller
         $q->where('name', 'like', "%".$cari."%");
       })
       ->orwhere('nama_kamar', 'like', "%".$cari."%")
+      ->orderBy('created_at','DESC')
       ->paginate(12);
 
       return view('front.index', \compact('kamar'));
@@ -33,9 +33,13 @@ class FrontendsController extends Controller
     // Show Kamar
     public function showkamar($slug)
     {
-      $kamar = kamar::where('slug', $slug)->first();
+      $kamar = kamar::with('province')->where('slug', $slug)->first();
 
-      return view('front.show', compact('kamar'));
+      $relatedKos = kamar::whereNotIn('slug', [$slug])
+        ->where('province_id', [$kamar->province_id])
+        ->limit(4)->get();
+
+      return view('front.show', compact('kamar','relatedKos'));
     }
 
     // Show semua kamar
@@ -53,14 +57,21 @@ class FrontendsController extends Controller
       ->orwhereHas('district', function($q) use ($cari){
         $q->where('name', 'like', "%".$cari."%");
       })
+
+      ->orwhereHas('favorite', function($q) use ($cari){
+        $q->where('user_id', 'like', "%".$cari."%")
+        ->where('user_id', Auth::id());
+      })
       ->orwhere('nama_kamar', 'like', "%".$cari."%")
+      ->orderBy('created_at','DESC')
       ->paginate(12);
 
       $provinsi = Kamar::with('provinsi')->select('province_id')->groupby('province_id')->get();
       $select = [];
       $select['jenis_kamar'] = $request->jenis_kamar;
       $select['name']        = $request->nama_provinsi;
-      return view('front.allCardContent', \compact('allKamar','select','provinsi'));
+      $select['user_id']     = $request->user;
+      return view('front.allCardContent', \compact('allKamar','select','provinsi','cari'));
     }
 
     // Filter kamar
@@ -78,9 +89,10 @@ class FrontendsController extends Controller
           $allKamar = kamar::whereHas('provinsi', function($q) use ($request) {
           $q->where('name', $request->nama_provinsi);
         })
+        ->orderBy('created_at','DESC')
         ->paginate(20);
       } else {
-        $allKamar = kamar::paginate(20);
+        $allKamar = kamar::orderBy('created_at','DESC')->paginate(20);
       }
 
 
@@ -103,9 +115,29 @@ class FrontendsController extends Controller
       ->orwhereHas('regencies', function($q) use ($kota){
         $q->where('name', 'like', "%".$kota."%");
       })
+      ->orderBy('created_at','DESC')
       ->paginate(12);
       return view('front.showByKota', \compact('kamar','kota'));
+    }
 
+    // Simpan kamar
+    public function simpanKamar(Request $request)
+    {
+      $simpan = new SimpanKamar;
+      $simpan->user_id  = Auth::id();
+      $simpan->kamar_id = $request->id;
+      $simpan->save();
+
+      return back();
+    }
+
+    // Hapus kamar disimpan
+    public function hapusKamar(Request $request)
+    {
+      $hapus = SimpanKamar::find($request->id);
+      $hapus->delete();
+
+      return back();
     }
 
 }

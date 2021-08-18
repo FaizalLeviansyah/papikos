@@ -83,16 +83,14 @@ if (! function_exists('getNameUser'))
     }
 }
 
-
-// Get transaksi sukses
-if (! function_exists('getTransaksiSuccess'))
+// Total pelanggan
+if (! function_exists('getCountPelanggan'))
 {
-    function getTransaksiSuccess($user_id=0)
+    function getCountPelanggan($pemilik_id=0)
     {
-      $model = new Transaction;
-      $data  = $model::where('user_id',$user_id)->where('status','Proses')->get();
-      $transaksi = !empty($data) ? $data->count() : '0';
-      return $transaksi;
+        $model = new Transaction;
+        $data  = $model::where('pemilik_id',$pemilik_id)->groupBy('user_id')->get();
+        return $data->count();
     }
 }
 

@@ -148,6 +148,15 @@
                         </div>
                       @enderror
                   </div>
+                  <div class="col-12">
+                    <label class="col-form-label">Alamat Lengkap Kos</label>
+                    <textarea name="alamat" class="form-control  @error('alamat') is-invalid @enderror" id="alamat" rows="4" placeholder="Tulis lengkap alamat kos disini"></textarea>
+                    @error('alamat')
+                      <div class="invalid-feedback">
+                        <strong>{{ $message }}</strong>
+                      </div>
+                      @enderror
+                  </div>
                 </div>
 
                 <div class="form-group ">
@@ -249,69 +258,69 @@
                 {{-- End Fasilitas Bersama --}}
 
                 {{-- Start Fasilitas Parkir --}}
-                <span id="fparkir">
-                    <div class="form-group ">
-                        <div class="row">
-                            <div class="col-lg-5 col-xl-5 col-10">
-                                <label class="col-form-label">Fasilitas Parkir</label>
-                                <input type="text" class="form-control @error('addparkir[0][name]') is-invalid @enderror" name="addparkir[0][name]" placeholder="Fasilitas Parkir" required>
-                                @error('addparkir[0][name]')
-                                  <div class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                  </div>
-                                @enderror
-                            </div>
-                            <div class="col-2 col-lg-1 col-xl-1">
-                                <label class="col-form-label">.</label>
-                                <input type="button" id="addparkir" name="addparkir" class="form-control btn btn-success btn-sm" value="+">
-                            </div>
-                        </div>
-                    </div>
-                </span>
+                  <span id="fparkir">
+                      <div class="form-group ">
+                          <div class="row">
+                              <div class="col-lg-5 col-xl-5 col-10">
+                                  <label class="col-form-label">Fasilitas Parkir</label>
+                                  <input type="text" class="form-control @error('addparkir[0][name]') is-invalid @enderror" name="addparkir[0][name]" placeholder="Fasilitas Parkir" required>
+                                  @error('addparkir[0][name]')
+                                    <div class="invalid-feedback">
+                                      <strong>{{ $message }}</strong>
+                                    </div>
+                                  @enderror
+                              </div>
+                              <div class="col-2 col-lg-1 col-xl-1">
+                                  <label class="col-form-label">.</label>
+                                  <input type="button" id="addparkir" name="addparkir" class="form-control btn btn-success btn-sm" value="+">
+                              </div>
+                          </div>
+                      </div>
+                  </span>
                 {{-- End Fasilitas Parkir --}}
 
                 {{-- Start Area --}}
-                <span id="farea">
-                    <div class="form-group ">
-                        <div class="row">
-                            <div class="col-lg-5 col-xl-5 col-10">
-                                <label class="col-form-label">Area Lingkungan</label>
-                                <input type="text" class="form-control @error('addarea[0][name]') is-invalid @enderror" name="addarea[0][name]" placeholder="Area Lingkungan" required>
-                                @error('addarea[0][name]')
-                                  <div class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                  </div>
-                                @enderror
-                            </div>
-                            <div class="col-2 col-lg-1 col-xl-1">
-                                <label class="col-form-label">.</label>
-                                <input type="button" id="addarea" name="addarea" class="form-control btn btn-success btn-sm" value="+">
-                            </div>
-                        </div>
-                    </div>
-                </span>
+                  <span id="farea">
+                      <div class="form-group ">
+                          <div class="row">
+                              <div class="col-lg-5 col-xl-5 col-10">
+                                  <label class="col-form-label">Area Lingkungan</label>
+                                  <input type="text" class="form-control @error('addarea[0][name]') is-invalid @enderror" name="addarea[0][name]" placeholder="Area Lingkungan" required>
+                                  @error('addarea[0][name]')
+                                    <div class="invalid-feedback">
+                                      <strong>{{ $message }}</strong>
+                                    </div>
+                                  @enderror
+                              </div>
+                              <div class="col-2 col-lg-1 col-xl-1">
+                                  <label class="col-form-label">.</label>
+                                  <input type="button" id="addarea" name="addarea" class="form-control btn btn-success btn-sm" value="+">
+                              </div>
+                          </div>
+                      </div>
+                  </span>
                 {{-- End Area --}}
 
                 {{-- Start Image --}}
-                <span id="image">
-                    <div class="form-group ">
-                        <div class="row">
-                            <div class="col-lg-5 col-xl-5 col-10">
-                                <label class="col-form-label">Foto Kamar</label>
-                                <input type="file" class="form-control @error('addfoto[0][name]') is-invalid @enderror" name="addfoto[0][foto_kamar]" required>
-                                @error('addfoto[0][name]')
-                                  <div class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                  </div>
-                                @enderror
-                            </div>
-                            <div class="col-2 col-lg-1 col-xl-1">
-                                <label class="col-form-label">.</label>
-                                <input type="button" id="addfoto" name="addfoto" class="form-control btn btn-success btn-sm" value="+">
-                            </div>
-                        </div>
-                    </div>
-                </span>
+                  <span id="image">
+                      <div class="form-group ">
+                          <div class="row">
+                              <div class="col-lg-5 col-xl-5 col-10">
+                                  <label class="col-form-label">Foto Kamar</label>
+                                  <input type="file" class="form-control @error('addfoto[0][name]') is-invalid @enderror" name="addfoto[0][foto_kamar]" required>
+                                  @error('addfoto[0][name]')
+                                    <div class="invalid-feedback">
+                                      <strong>{{ $message }}</strong>
+                                    </div>
+                                  @enderror
+                              </div>
+                              <div class="col-2 col-lg-1 col-xl-1">
+                                  <label class="col-form-label">.</label>
+                                  <input type="button" id="addfoto" name="addfoto" class="form-control btn btn-success btn-sm" value="+">
+                              </div>
+                          </div>
+                      </div>
+                  </span>
                 {{-- End Image --}}
 
                 <div class="form-group row ">

@@ -3,7 +3,7 @@
 namespace App\Services\Owner;
 use ErrorException;
 
-use App\Models\{kamar,fkamar,fkamar_mandi,fbersama,fparkir,area,fotokamar,Province,Regency};
+use App\Models\{kamar,fkamar,fkamar_mandi,fbersama,fparkir,area,fotokamar,Province,Regency,Alamat};
 use Auth;
 use Session;
 use file;
@@ -127,6 +127,11 @@ class KamarService {
             $foto->foto_kamar = $nama_foto;
             $foto->save();
           }
+
+          $alamat = Alamat::create([
+            'kamar_id'  => $kamar->id,
+            'alamat'    => $params->alamat
+          ]);
       }
 
       Session::flash('success','Kamar berhasil ditambah');
@@ -232,6 +237,21 @@ class KamarService {
             $area->name = $value['name'];
             $area->save();
           }
+        }
+      }
+
+      if ($kamar) {
+        foreach($params->addfoto as $value) {
+          $foto_kamar = $value['foto_kamar'];
+          $nama_foto = time()."_".$foto_kamar->getClientOriginalName();
+          // isi dengan nama folder tempat kemana file diupload
+          $tujuan_upload = 'images/foto_kamar';
+          $foto_kamar->move($tujuan_upload,$nama_foto);
+
+          $foto = new fotokamar;
+          $foto->kamar_id = $id;
+          $foto->foto_kamar = $nama_foto;
+          $foto->save();
         }
       }
 

@@ -75,7 +75,7 @@
 
                     <div class="col-sm-3">
                         <label class="col-form-label">Provinsi</label>
-                        <select name="province_id" class="form-control" id="select2">
+                        <select name="province_id" class="form-control" id="select2" disabled>
                             <option value="">-- Pilih Provinsi --</option>
                                 @foreach ($provinsi as $item)
                                     <option value="{{$item->id}}" {{$edit->province_id == $item->id ? 'selected' : ''}} >{{$item->name}}</option>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="col-sm-3">
                         <label class="col-form-label">Regency</label>
-                        <select name="regency_id" class="form-control  @error('regency_id') is-invalid @enderror" id="regency"></select>
+                        <input type="text" class="form-control" disabled value="{{$edit->regencies->name}}">
                         @error('regency_id')
                           <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -93,11 +93,21 @@
                     </div>
                     <div class="col-sm-3">
                         <label class="col-form-label">District</label>
-                        <select name="district_id" class="form-control  @error('district_id') is-invalid @enderror" id="district"></select>
+                        <input type="text" class="form-control" disabled value="{{$edit->district->name}}">
                         @error('district_id')
                           <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                           </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12">
+                      <label class="col-form-label">Alamat Lengkap Kos</label>
+                      <textarea name="alamat" class="form-control  @error('alamat') is-invalid @enderror" id="alamat" rows="4" placeholder="Tulis lengkap alamat kos disini"> {{$edit->alamat->alamat}} </textarea>
+                      @error('alamat')
+                        <div class="invalid-feedback">
+                          <strong>{{ $message }}</strong>
+                        </div>
                         @enderror
                     </div>
                 </div>
@@ -208,6 +218,28 @@
                   </div>
                 </span>
                 {{-- End Area --}}
+
+                {{-- Start Image --}}
+                <span id="image">
+                    <div class="form-group ">
+                        <div class="row">
+                            <div class="col-lg-5 col-xl-5 col-10">
+                                <label class="col-form-label">Foto Kamar</label>
+                                <input type="file" class="form-control @error('addfoto[0][name]') is-invalid @enderror" name="addfoto[0][foto_kamar]" required>
+                                @error('addfoto[0][name]')
+                                  <div class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                  </div>
+                                @enderror
+                            </div>
+                            <div class="col-2 col-lg-1 col-xl-1">
+                                <label class="col-form-label">.</label>
+                                <input type="button" id="addfoto" name="addfoto" class="form-control btn btn-success btn-sm" value="+">
+                            </div>
+                        </div>
+                    </div>
+                </span>
+              {{-- End Image --}}
                 <div class="form-group row ">
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">Update</button>
@@ -224,4 +256,5 @@
 @endsection
 @section('scripts')
   <script src="{{asset('ctrl/kamar/create.js')}}"></script>
+
 @endsection

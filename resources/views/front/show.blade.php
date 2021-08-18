@@ -10,16 +10,31 @@
     top: 0;
     padding-top: 43px;
   }
+  .alerts {
+    display: none;
+  }
 </style>
+
+@section('description')
+  {{$kamar->nama_kamar}}
+@endsection
+
+@section('image')
+  {{url('images/bg_foto',$kamar->bg_foto)}}
+@endsection
+
+@section('title')
+  {{$kamar->nama_kamar}} {{ucfirst(strtolower($kamar->provinsi->name))}}
+@endsection
 @section('content')
 
 <div class="row">
   <div class="col-lg-8">
     <h4 class="card-title">
       <a href="/" style="font-size: 15px;"><i class="feather icon-home"></i> Home ></a>
-      <a href="" style="font-size: 15px;">Kos {{ucfirst(strtolower($kamar->provinsi->name))}} ></a>
-      <a href="" style="font-size: 15px;">Kos {{ucfirst(strtolower($kamar->regencies->name))}} ></a>
-      <a href="" style="font-size: 15px; color:black">{{$kamar->nama_kamar}}</a>
+      <a href="" style="font-size: 15px;">Kost {{ucwords(strtolower($kamar->provinsi->name))}} ></a>
+      <a href="" style="font-size: 15px;">Kost {{ucwords(strtolower($kamar->regencies->name))}} ></a>
+      <a href="" style="font-size: 15px; color:black">{{$kamar->nama_kamar}} {{ucwords(strtolower($kamar->district->name))}} {{ucwords(strtolower($kamar->regencies->name))}} </a>
     </h4>
     <div class="card ">
       <div class="card-content">
@@ -39,11 +54,6 @@
       </div>
     </div>
   </div>
-
-  {{-- @foreach ($kamar->fotoKamar as $foto)
-    <img src="{{url('images/foto_kamar', $foto->foto_kamar)}}" width="400px" height="300px">
-  @endforeach --}}
-
   <div class="col-lg-4 sticky">
     <div class="card">
       <div class="card-content">
@@ -51,8 +61,9 @@
           <img src="https://cdn.pixabay.com/photo/2018/08/28/13/29/avatar-3637561_1280.png" width="50px" height="50px" class="rounded">
           <span class="font-weight-bold" style="font-size: 20px; color:black;">{{getNameUser($kamar->user_id)}}</span>
           <p class="ml-5" style="font-size: 10px; margin-top:-3%">Pemilik Kos - Aktif Sejak {{monthyear($kamar->user->created_at)}} </p>
-          <span class="btn btn-outline-primary btn-sm">{{getTransaksiSuccess(!empty($kamar->transaksi->user_id) ? $kamar->transaksi->user_id : '')}} Transaksi Berhasil</span>
-          <span class="btn btn-outline-info btn-sm"> Total 20 Pelanggan</span>
+          <span class="btn btn-outline-primary btn-sm">
+            {{$kamar->user->transaksi->where('status','Proses')->count()}} Transaksi Berhasil</span>
+          <span class="btn btn-outline-info btn-sm"> Total  {{getCountPelanggan($kamar->user_id)}} Pelanggan</span>
           <p class="mt-1"> <i class="feather icon-phone-call"></i> @auth 082248885062 @else 0822******** @endauth </p>
 
           <p class="mt-2" style="font-size: 12px">Hubungi pemilik kos untuk menanyakan lebih detail terkait kamar ini.</p>
@@ -72,17 +83,51 @@
   </div>
 
   <div class="col-lg-8">
+    <div class="alerts alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <i class="feather icon-copy"></i>
+    URL Berhasil Disalin
+  </div>
     <div class="card">
       <div class="card-body">
-        <h3>{{$kamar->nama_kamar}} {{ucfirst(strtolower($kamar->regencies->name))}} {{ucfirst(strtolower($kamar->provinsi->name))}}</h3>
+        <h3>{{$kamar->nama_kamar}} {{ucwords(strtolower($kamar->regencies->name))}} {{ucwords(strtolower($kamar->provinsi->name))}}</h3>
         <button class="btn btn-outline-black btn-sm"><span style="font-size: 12px; font-weight:bold;">Kos {{$kamar->jenis_kamar}}</span></button>
         <div class="row">
           <div class="col-md-6 mt-1">
             <span style="font-weight:bold">Tersisa <span style="color: {{$kamar->sisa_kamar <= 5 ? 'red' : ''}}; font-weight:bold">{{$kamar->sisa_kamar}} kamar</span></span>
           </div>
           <div class="col-md-6 mt-1">
-            <a class="btn btn-outline-black btn-sm" style="font-size: 12px; font-weight:bold;"> <i class="feather icon-heart"></i>  Simpan</a>
-            <a class="btn btn-outline-black btn-sm" style="font-size: 12px; font-weight:bold;"> <i class="feather icon-share-2"></i>  Bagikan</a>
+            @auth
+              @if ($kamar->favorite == null)
+                {{-- Simpan kamar favorite --}}
+                <a data-id-simpan="{{$kamar->id}}" id="simpan" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Simpan Kamar" style="font-size: 12px; font-weight:bold;">
+                <i class="feather icon-heart"></i> Simpan</a>
+              @else
+                {{-- Hapus kamar favorite --}}
+                @if ($kamar->favorite->kamar_id == $kamar->id)
+                  <a data-id-hapus="{{$kamar->favorite->id}}" id="hapus" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Kamar" style="font-size: 12px; font-weight:bold;">
+                  <i class="feather icon-heart"></i> Hapus</a>
+                @endif
+              @endif
+            @else
+              <a href="{{route('login')}}" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Silahkan Login" style="font-size: 12px; font-weight:bold;"> <i class="feather icon-heart"></i>  Simpan</a>
+            @endauth
+
+              <div class="btn-group" data-toggle="tooltip" data-placement="top" title="Bagikan kamar">
+                <div class="dropdown">
+                    <button class="btn btn-outline-black btn-sm" id="share" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 12px; font-weight:bold;">
+                        <i class="feather icon-share-2"></i> Bagikan
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="share">
+                        <a class="dropdown-item" target="_blank" href="{{ Share::currentPage($kamar->nama_kamar)->facebook()->getRawLinks() }}"> <i class="fa fa-facebook"></i> Facebook</a>
+                        <a class="dropdown-item" target="_blank" href="{{ Share::currentPage($kamar->nama_kamar)->twitter()->getRawLinks() }}"><i class="fa fa-twitter"></i> Twitter</a>
+                        <a class="dropdown-item" target="_blank" href="{{ Share::currentPage($kamar->nama_kamar)->telegram()->getRawLinks() }}"><i class="fa fa-telegram"></i> Telegram</a>
+                        <a class="dropdown-item" target="_blank" href="{{ Share::currentPage($kamar->nama_kamar)->whatsapp()->getRawLinks() }}"><i class="fa fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+                </div>
+              </div>
+              <p class="hidden" id="url"> {{url('room', $kamar->slug)}} </p>
+              <a onclick="copyToClipboard('#url')" id="eventshow" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Salin link" style="font-size: 12px; font-weight:bold; color:black"> <i class="feather icon-copy"></i>  Copy link</a>
           </div>
         </div>
         <hr>
@@ -144,6 +189,10 @@
 
         <h5 class="mt-1" style="font-weight: bold">Peraturan selama ngekos</h5>
         {{$kamar->desc ?? '-'}}
+
+        <h5 class="mt-1" style="font-weight: bold">Lokasi</h5>
+        {{$kamar->alamat->alamat ?? '-'}} <br>
+        <small style="text-decoration:underline"> {{ucfirst(strtolower($kamar->district->name))}}, {{ucfirst(strtolower($kamar->regencies->name))}}, {{ucfirst(strtolower($kamar->provinsi->name))}} </small>
       </div>
     </div>
   </div>
@@ -249,6 +298,6 @@
       </div>
     </form>
   </div>
-
 </div>
+@include('front.relatedKos')
 @endsection

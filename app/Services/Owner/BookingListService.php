@@ -14,7 +14,7 @@ class BookingListService {
   {
     try {
       if (!empty(Auth::user()->kamar->id)) {
-        $booking = Transaction::where('pemilik_id', Auth::id())->orderBy('created_at','DESC')->get();
+        $booking = Transaction::with('payment')->where('pemilik_id', Auth::id())->orderBy('created_at','DESC')->get();
         return view('pemilik.booking.index', compact('booking'));
       } else {
         Session::flash('error','Data Kamar Masih Kosong');

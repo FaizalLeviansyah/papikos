@@ -36,6 +36,7 @@ class KamarRequest extends FormRequest
           'province_id'           => 'required',
           'regency_id'            => 'required',
           'district_id'           => 'required',
+          'alamat'                => 'required',
           // 'addmore[0][name]'      => 'required',
           // 'addkm[0][name]'        => 'required',
           // 'addbersama[0][name]'   => 'required',
@@ -63,6 +64,7 @@ class KamarRequest extends FormRequest
         'harga_kamar.numeric'           => 'Harga Kamar hanya mendukung angka',
         'listrik.required'              => 'Biaya Listrik harus dipilih',
         'province_id.required'          => 'Provinsi harus dipilih.',
+        'alamat.required'               => 'Alamat kos tidak boleh kosong.'
         // 'addmore[0][name].required'     => 'Fasilitas Kamar tidak boleh kosong.',
         // 'addkm[0][name].required'       => 'Fasilitas Kamar Mandi tidak boleh kosong.',
         // 'addbersama[0][name].required'  => 'Fasilitas Bersama tidak boleh kosong.',

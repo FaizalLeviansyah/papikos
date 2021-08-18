@@ -43,7 +43,7 @@ class TransactionController extends Controller
           $kamar = new Transaction;
           $kamar->key                 = 'confirm-payment-' .$key;
           $kamar->transaction_number  = 'BOOK-' .$number .$id .'-' .$date;
-          $kamar->kamar_id            = $id;
+          $kamar->kamar_id            = $room->id;
           $kamar->user_id             = Auth::id();
           $kamar->pemilik_id          = $room->user_id;
           $kamar->lama_sewa           = $request->lama_sewa;
