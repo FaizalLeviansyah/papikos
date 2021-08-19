@@ -34,7 +34,7 @@ Support Pap!Kos by becoming a sponsor on [Saweria](https://saweria.co/andes2912)
 
 ## Any Questions ?
  
-Please contace me on [Andri Desmana](mailto:andridesmana29@outlook.com?subject=[GitHub]%20Questesion%20Pap!Kos) or [Telegram](https://t.me/andridesmana)
+Please contact me on [Andri Desmana](mailto:andridesmana29@outlook.com?subject=[GitHub]%20Questesion%20Pap!Kos) or [Telegram](https://t.me/andridesmana)
     
 ## License
 

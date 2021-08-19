@@ -2,7 +2,7 @@
   <h4 style="text-align: center">Belum ada kamar yang tersedia.</h4>
 @else
   <div class="card-btn d-flex justify-content-between mt-2">
-    <h2 style="color:black">Dipilih Kos nya kakak</h2>
+    <p style="color:black; font-size:1rem; font-weight:bold">Rekomendasi</p>
     @if ($kamar->total() >= 8)
     <a href="{{url('show-all-room')}}" class="btn btn-outline-info mb-1" style="color:black">Lihat Semua</a>
     @endif

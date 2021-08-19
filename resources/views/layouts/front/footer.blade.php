@@ -38,3 +38,5 @@
       <span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; {{date('Y')}} <a class="text-bold-800 grey darken-2" href="https://andridesmana.pw" target="_blank">Andri Desmana</a></span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
     </p>
 </footer>
+
+@include('layouts.front.menuBottom')
