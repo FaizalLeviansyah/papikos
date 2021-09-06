@@ -103,7 +103,7 @@
 
                     <div class="col-12">
                       <label class="col-form-label">Alamat Lengkap Kos</label>
-                      <textarea name="alamat" class="form-control  @error('alamat') is-invalid @enderror" id="alamat" rows="4" placeholder="Tulis lengkap alamat kos disini"> {{$edit->alamat->alamat}} </textarea>
+                      <textarea name="alamat" class="form-control" id="alamat" rows="4" placeholder="Tulis lengkap alamat kos disini"> {{$edit->alamat->alamat ?? '-'}} </textarea>
                       @error('alamat')
                         <div class="invalid-feedback">
                           <strong>{{ $message }}</strong>
