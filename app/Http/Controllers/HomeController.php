@@ -32,7 +32,8 @@ class HomeController extends Controller
           $total = Transaction::where('pemilik_id',Auth::id())->whereIn('status',['Proses','Done'])->count();
           return view('pemilik.index', \compact('aktif','total'));
         } elseif(Auth::user()->role == 'Pencari') {
-          return view('user.index');
+          $aktif = Transaction::where('user_id',Auth::id())->where('status','Proses')->count();
+          return view('user.index', \compact('aktif'));
         } else {
           abort(404);
         }

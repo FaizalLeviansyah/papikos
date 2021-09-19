@@ -39,7 +39,7 @@
             <div class="swiper-wrapper">
               @foreach ($kamar->fotoKamar as $foto)
                 <div class="swiper-slide">
-                  <img class="img-fluid" src="{{url('images/foto_kamar', $foto->foto_kamar)}}" alt="banner">
+                  <img class="img-fluid" src="{{asset('storage/images/foto_kamar/'. $foto->foto_kamar)}}" alt="banner">
                 </div>
               @endforeach
             </div>
@@ -100,22 +100,13 @@
                 <i class="feather icon-heart"></i> Simpan</a>
               @else
                 {{-- Hapus kamar favorite --}}
-                @if ($kamar->favorite->kamar_id == $kamar->id && $kamar->favorite->user_id == Auth::id())
-                  <a data-id-hapus="{{$kamar->favorite->id}}" id="hapus" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Kamar" style="font-size: 12px; font-weight:bold;">
+                @if ($fav)
+                  <a data-id-hapus="{{$fav->id}}" id="hapus" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Kamar" style="font-size: 12px; font-weight:bold;">
                   <i class="feather icon-heart"></i> Hapus</a>
                 @else
                   <a data-id-simpan="{{$kamar->id}}" id="simpan" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Simpan Kamar" style="font-size: 12px; font-weight:bold;">
                   <i class="feather icon-heart"></i> Simpan</a>
                 @endif
-
-                {{-- @foreach ($kamar->favorite as $kamars)
-                  @if ($kamars->kamar_id == $kamar->id && $kamars->user_id == Auth::id())
-                    <a data-id-hapus="{{$kamars->id}}" id="hapus" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus Kamar" style="font-size: 12px; font-weight:bold;">
-                    <i class="feather icon-heart"></i> Hapus</a>
-                  @endif
-                @endforeach
-                 <a data-id-simpan="{{$kamar->id}}" id="simpan" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Simpan Kamar" style="font-size: 12px; font-weight:bold;">
-                    <i class="feather icon-heart"></i> Simpan</a> --}}
               @endif
             @else
               <a href="{{route('login')}}" class="btn btn-outline-black btn-sm" data-toggle="tooltip" data-placement="top" title="Silahkan Login" style="font-size: 12px; font-weight:bold;"> <i class="feather icon-heart"></i>  Simpan</a>

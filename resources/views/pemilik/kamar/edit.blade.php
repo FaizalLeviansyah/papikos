@@ -225,7 +225,7 @@
                         <div class="row">
                             <div class="col-lg-5 col-xl-5 col-10">
                                 <label class="col-form-label">Foto Kamar</label>
-                                <input type="file" class="form-control @error('addfoto[0][name]') is-invalid @enderror" name="addfoto[0][foto_kamar]" required>
+                                <input type="file" class="form-control @error('addfoto[0][name]') is-invalid @enderror" name="addfoto[0][foto_kamar]">
                                 @error('addfoto[0][name]')
                                   <div class="invalid-feedback">
                                     <strong>{{ $message }}</strong>

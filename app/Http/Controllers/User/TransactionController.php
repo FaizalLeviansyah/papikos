@@ -4,8 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\TransactionRequest;
 use App\Models\{Transaction,kamar,payment,User,Bank};
 use Auth;
+use ErrorException;
+use DB;
 use Str;
 use Session;
 use Carbon\carbon;
@@ -15,23 +18,20 @@ class TransactionController extends Controller
     // Tagihan
     public function tagihan()
     {
-      if (Auth::check()) {
-        if (Auth::user()->role == 'Pencari') {
-          $tagihan = Transaction::where('user_id', Auth::id())->get();
-          return view('user.payment.index', compact('tagihan'));
-        }
+      try {
+        $tagihan = Transaction::where('user_id', Auth::id())->get();
+        return view('user.payment.index', compact('tagihan'));
+      } catch (ErrorException $e) {
+        throw new ErrorException($e->getMessage());
       }
     }
 
     // Transaction Sewa Kamar
-    public function store(Request $request, $id)
+    public function store(TransactionRequest $request, $id)
     {
 
-      if (Auth::check()) {
-        if (Auth::user()->role == 'Pencari') {
-          $request->validate([
-            'tgl_sewa'  => 'required'
-          ]);
+      try {
+        DB::beginTransaction();
 
           $room = kamar::where('id', $id)->first(); // Get Room by id
 
@@ -87,11 +87,12 @@ class TransactionController extends Controller
             $point->save();
           }
 
+          DB::commit();
           Session::flash('success','Berhasil, Silahkan Melakukan Pembayaran');
           return redirect('/user/tagihan');
-        } else {
-          abort(403);
-        }
+      } catch (ErrorException $e) {
+        DB::rollback();
+        throw new ErrorException($e->getMessage());
       }
 
     }
@@ -99,37 +100,48 @@ class TransactionController extends Controller
     // Detail Pembayaran
     public function detail_payment($key)
     {
-      $transaksi = Transaction::where('key',$key)->first();
-      $bank = Bank::all();
-      if ($transaksi->payment->status == 'Pending') {
-        return view('user.payment.show', compact('transaksi','bank'));
-      } else {
-        Session::flash('error','Pembayaran Sudah Terkirim');
-        return redirect('/user/tagihan');
+      try {
+        $transaksi = Transaction::where('key',$key)->first();
+        $bank = Bank::all();
+        if ($transaksi->payment->status == 'Pending') {
+          return view('user.payment.show', compact('transaksi','bank'));
+        } else {
+          Session::flash('error','Pembayaran Sudah Terkirim');
+          return redirect('/user/tagihan');
+        }
+      } catch (ErrorException $e) {
+        throw new ErrorException($e->getMessage());
       }
     }
 
     // konfirmasi pembayaran kamar
     public function update(KonfirmasiPembayaranRequest $request, $id)
     {
-      $konfirmasi = Transaction::findOrFail($id);
-      $konfirmasi->update([
-        'status'  => 'Pending'
-      ]);
+      try {
+        DB::beginTransaction();
+        $konfirmasi = Transaction::findOrFail($id);
+        $konfirmasi->update([
+          'status'  => 'Pending'
+        ]);
 
-      if ($konfirmasi) {
-        $payment = payment::where('transaction_id',$id)->first();
-        $payment->type_transfer     = 'BANK';
-        $payment->nama_bank         = $request->nama_bank;
-        $payment->nama_pemilik      = $request->nama_pemilik;
-        $payment->bank_tujuan       = $request->bank_tujuan;
-        $payment->status            = 'Success';
-        $payment->jumlah_bayar      = $konfirmasi->harga_total;
-        $payment->tgl_transfer      = $request->tgl_transfer;
-        $payment->save();
+        if ($konfirmasi) {
+          $payment = payment::where('transaction_id',$id)->first();
+          $payment->type_transfer     = 'BANK';
+          $payment->nama_bank         = $request->nama_bank;
+          $payment->nama_pemilik      = $request->nama_pemilik;
+          $payment->bank_tujuan       = $request->bank_tujuan;
+          $payment->status            = 'Success';
+          $payment->jumlah_bayar      = $konfirmasi->harga_total;
+          $payment->tgl_transfer      = $request->tgl_transfer;
+          $payment->save();
+        }
+
+        DB::commit();
+        Session::flash('success','Pembayaran Terkirim');
+        return redirect('/user/tagihan');
+      } catch (ErrorException $e) {
+        DB::rollback();
+        throw new ErrorException($e->getMessage());
       }
-
-      Session::flash('success','Pembayaran Terkirim');
-      return redirect('/user/tagihan');
     }
 }

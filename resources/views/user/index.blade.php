@@ -59,7 +59,7 @@
                             <i class="feather icon-users text-danger font-medium-5"></i>
                         </div>
                     </div>
-                    <h2 class="text-bold-700">1</h2>
+                    <h2 class="text-bold-700">{{$aktif}}</h2>
                     <p class="mb-0 line-ellipsis">Kamar Aktif</p>
                 </div>
             </div>

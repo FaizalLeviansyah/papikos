@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/andes2912/kos/master/public/assets/images/logo/backup-logo.png?sanitize=true&raw=true" />
+<img src="https://github.com/andes2912/kos/blob/master/public/assets/images/logo/backup-logo.png?raw=true?sanitize=true&raw=true" />
 
 <p>Halo, ini adalah Pap!Kos aplikasi Pencarian Kost dan Apartement, desain dan fitur sebagian terinpirasi dari aplikasi Mamikos.  Aplikasi ini akan terus mendapat update secara berkala. Mohon untuk memberi issue jika kalian menemui bug pada saat penginstalan atau saat menggunakan aplikasi ini. Terima kasih <br/>
     

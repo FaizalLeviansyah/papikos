@@ -13,7 +13,7 @@
       <div class="card">
         <div class="card-content">
           <a href="{{url('room', $kamars->slug)}}">
-            <img class="card-img-top img-fluid" src="{{asset('images/bg_foto/' .$kamars->bg_foto)}}" alt="Card image cap" style="max-height: 180px">
+            <img class="card-img-top img-fluid" src="{{asset('storage/images/bg_foto/' .$kamars->bg_foto)}}" alt="Card image cap" style="max-height: 180px">
           </a>
           <div class="card-body">
             <a href="{{url('room', $kamars->slug)}}">

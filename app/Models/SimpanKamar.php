@@ -15,6 +15,6 @@ class SimpanKamar extends Model
 
     public function kamar()
     {
-      return $this->hasOne('App\Models\Kamar','id','kamar_id');
+      return $this->hasOne(kamar::class,'id','kamar_id');
     }
 }

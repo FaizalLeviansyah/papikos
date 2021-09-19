@@ -6,7 +6,7 @@ use Auth;
 use Session;
 use Carbon\carbon;
 use App\Models\{Transaction,kamar,payment,User};
-
+use DB;
 class BookingListService {
 
   // Booking List
@@ -45,6 +45,7 @@ class BookingListService {
   public function proses_confirm_payment($key)
   {
     try {
+      DB::beginTransaction();
       $confirm = Transaction::where('key',$key)->first();
       $confirm->status      = 'Proses';
       $confirm->updated_at  = Carbon::now();
@@ -61,9 +62,11 @@ class BookingListService {
           $point->save();
         }
       }
+      DB::commit();
       Session::flash('success','Konfirmasi Pembayaran Sukses.');
       return redirect('/pemilik/booking-list');
     } catch (ErrorException $e) {
+      DB::rollback();
       throw new ErrorException($e->getMessage());
     }
   }

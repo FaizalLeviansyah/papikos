@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\{User,DataUser};
+use ErrorException;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
-
+use DB;
 class RegisterController extends Controller
 {
     /*
@@ -79,6 +80,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+      try {
+        DB::beginTransaction();
         $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -87,6 +90,12 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole($data['role']);
+        DB::commit();
         return $user;
+      } catch (ErrorException $e) {
+        DB::rollback();
+        throw new ErrorException($e->getMessage());
+      }
+
     }
 }
