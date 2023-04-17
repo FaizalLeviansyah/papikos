@@ -1,42 +1,6 @@
-<img src="https://github.com/andes2912/kos/blob/master/public/assets/images/logo/backup-logo.png?raw=true?sanitize=true&raw=true" />
-
-<p>Halo, ini adalah Pap!Kos aplikasi Pencarian Kost dan Apartement, desain dan fitur sebagian terinpirasi dari aplikasi Mamikos.  Aplikasi ini akan terus mendapat update secara berkala. Mohon untuk memberi issue jika kalian menemui bug pada saat penginstalan atau saat menggunakan aplikasi ini. Terima kasih <br/>
-    
-## Requirements
-
-* PHP 7.3 or higher
-* Database (eg: MySQL)
-* Web Server (eg: Apache, Nginx, IIS)
-    
-## Framework
-
-Pap!Kos dibangun menggunakan [Laravel](http://laravel.com), the best existing PHP framework, as the foundation framework.
-
-## Installation
-
-* Install [Composer](https://getcomposer.org/download) and [Npm](https://nodejs.org/en/download)
-* Clone the repository: `git clone https://github.com/andes2912/kos.git`
-* Install dependencies: `composer install ; npm install ; npm run dev`
-* Run `cp .env.example .env` for create .env file
-* Run `php artisan migrate --seed` for migration database
-* Detail login, Email : `admin@papikos.com` Password `12345678`
-
-## Changelog
-
-Please see [Releases](../../releases) for more information what has changed recently.
-    
-## Package
-* [IndoRegion](https://github.com/azishapidin/indoregion) package Laravel untuk menyimpan data wilayah Indonesia
-* [IndoBank](https://github.com/andes2912/indobank) package Laravel untuk menyimpan data Nama Bank yang ada di Indonesia
-    
-## Sponsors
-
-Support Pap!Kos by becoming a sponsor on [Saweria](https://saweria.co/andes2912). Your logo will show up here with a link to your website.
-
-## Any Questions ?
- 
-Please contact me on [Andri Desmana](mailto:andridesmana29@outlook.com?subject=[GitHub]%20Questesion%20Pap!Kos) or [Telegram](https://t.me/andridesmana)
-    
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<h1>actor in project (CVM)</h1>
+<p>
+Admin :  The admin role approves the submitted rental/housing requests from the owner
+User : search for rental/housing that meets their preferences. The user can make bookings with the owner, view recommended rental/housing options, and edit their user account data. The user can also make payments through the website.
+Owner : The owner can add, edit, update, and delete room data. They can also activate/deactivate room status and provide promotions for selected rooms. The owner handles the booking transactions with users, such as approving bookings, and can monitor the occupants of the rooms.
+ <br/>
