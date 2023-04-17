@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^8.1",
         "andes2912/indobank": "^0.4.0",
         "azishapidin/indoregion": "^3.0",
         "doctrine/dbal": "^3.1",
@@ -43,7 +43,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-          "app/Helpers/Model.php"
+            "app/Helpers/Model.php"
         ],
         "classmap": [
             "database/seeders",
